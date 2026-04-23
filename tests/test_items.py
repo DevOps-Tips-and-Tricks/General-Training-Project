@@ -40,7 +40,7 @@ def test_list_items(client):
     assert response.status_code == 200
     data = response.json()
     assert len(data) == 2
-    assert type(data) == list
+    assert isinstance(data, list)
 
 
 def test_update_item(client):
