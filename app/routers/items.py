@@ -9,17 +9,14 @@ from app.database import get_redis
 from app.schemas import ItemCreate, ItemResponse
 
 # Create a router instance for items
-router = APIRouter(
-    prefix="/items",
-    tags=["Items"]
-)
+router = APIRouter(prefix="/items", tags=["Items"])
 
 
 @router.post("/", response_model=ItemResponse, status_code=201)
 def create_item(item: ItemCreate, redis_client: Redis = Depends(get_redis)):
     item_id = str(uuid.uuid4())
     item_dict = item.model_dump()
-    item_dict['id'] = item_id
+    item_dict["id"] = item_id
 
     redis_client.set(f"item:{item_id}", json.dumps(item_dict))
     return item_dict
@@ -47,12 +44,14 @@ def list_items(redis_client: Redis = Depends(get_redis)):
 
 
 @router.put("/{item_id}", response_model=ItemResponse)
-def update_item(item_id: str, item: ItemCreate, redis_client: Redis = Depends(get_redis)):
+def update_item(
+    item_id: str, item: ItemCreate, redis_client: Redis = Depends(get_redis)
+):
     if not redis_client.exists(f"item:{item_id}"):
         raise HTTPException(status_code=404, detail="Item not found")
 
     item_dict = item.model_dump()
-    item_dict['id'] = item_id
+    item_dict["id"] = item_id
 
     redis_client.set(f"item:{item_id}", json.dumps(item_dict))
     return item_dict

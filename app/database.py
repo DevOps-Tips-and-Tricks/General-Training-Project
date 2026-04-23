@@ -9,7 +9,7 @@ def get_redis():
         host=settings.redis_host,
         port=settings.redis_port,
         db=settings.redis_db,
-        decode_responses=True
+        decode_responses=True,
     )
     try:
         yield client

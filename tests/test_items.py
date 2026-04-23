@@ -2,7 +2,7 @@ def test_create_item(client):
     payload = {
         "name": "Wireless Mouse",
         "description": "Ergonomic 2.4GHz mouse",
-        "price": 29.99
+        "price": 29.99,
     }
     response = client.post("/items/", json=payload)
 
@@ -45,14 +45,16 @@ def test_list_items(client):
 
 def test_update_item(client):
     # Create an item
-    create_response = client.post("/items/", json={"name": "Headphones", "price": 99.00})
+    create_response = client.post(
+        "/items/", json={"name": "Headphones", "price": 99.00}
+    )
     item_id = create_response.json()["id"]
 
     # Update the item
     update_payload = {
         "name": "Headphones Pro",
         "description": "Noise cancelling",
-        "price": 149.00
+        "price": 149.00,
     }
     response = client.put(f"/items/{item_id}", json=update_payload)
 
