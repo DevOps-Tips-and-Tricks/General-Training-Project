@@ -1,11 +1,12 @@
 import json
 import uuid
 from typing import List
+
 from fastapi import APIRouter, HTTPException, Depends
 from redis import Redis
 
-from app.schemas import ItemCreate, ItemResponse
 from app.database import get_redis
+from app.schemas import ItemCreate, ItemResponse
 
 # Create a router instance for items
 router = APIRouter(

@@ -1,9 +1,9 @@
+import fakeredis
 import pytest
 from fastapi.testclient import TestClient
-import fakeredis
 
-from app.main import app
 from app.database import get_redis
+from app.main import app
 
 
 @pytest.fixture()

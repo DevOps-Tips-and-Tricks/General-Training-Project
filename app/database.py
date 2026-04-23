@@ -1,5 +1,7 @@
 import redis
+
 from app.config import settings
+
 
 def get_redis():
     """Dependency to get a Redis connection."""
